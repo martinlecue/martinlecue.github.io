@@ -1,4 +1,19 @@
 {
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appIDs": ["AMFDZKS8ST.martin.Dice-Sheet"],
+        "components": [
+          {
+            "/": "/",
+            "?": { "room": "?*" },
+            "comment": "Open spectator view for shared games"
+          }
+        ]
+      }
+    ]
+  },
   "appclips": {
     "apps": ["AMFDZKS8ST.martin.Dice-Sheet.Clip"]
   }
