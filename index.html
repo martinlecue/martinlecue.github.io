@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="apple-itunes-app" content="app-id=6788880047">
+  <meta name="apple-itunes-app" content="app-id=6769880047" id="smartBanner">
   <title>Dice Sheet — Rejoindre une partie</title>
   <style>
     body {
@@ -62,16 +62,27 @@
     <div class="room-code-value" id="roomCodeValue"></div>
   </div>
 
-  <a href="https://apps.apple.com/app/id6788880047" class="btn">Télécharger sur l'App Store</a>
+  <a href="https://apps.apple.com/app/id6769880047" class="btn" id="storeLink">Télécharger sur l'App Store</a>
 
   <p class="hint">Après l'installation, ouvre l'app et tape « Rejoindre une partie ».</p>
 
   <script>
+    const APP_ID = '6769880047';
     const params = new URLSearchParams(window.location.search);
     const room = params.get('room');
+
     if (room && /^\d{5}$/.test(room)) {
       document.getElementById('roomCodeCard').style.display = 'block';
       document.getElementById('roomCodeValue').textContent = room;
+
+      // Passe le code a l'app via le bandeau Safari : si Dice Sheet est deja
+      // installe, le bouton "Ouvrir" atterrit directement sur la partie
+      // (gere par handleIncomingURL dans ContentView).
+      const banner = document.getElementById('smartBanner');
+      banner.setAttribute(
+        'content',
+        `app-id=${APP_ID}, app-argument=${window.location.href}`
+      );
     }
   </script>
 </body>
