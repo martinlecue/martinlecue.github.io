@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Toopua (Bora-Bora) — Encyclopédie</title>
+  <meta name="description" content="Toopua (Toʻopua), île haute d'origine volcanique du lagon de Bora-Bora, en Polynésie française : géographie, géologie, légendes, population et tourisme.">
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #202122;
+      --muted: #54595d;
+      --link: #3366cc;
+      --border: #a2a9b1;
+      --border-light: #c8ccd1;
+      --surface: #f8f9fa;
+      --infobox-head: #cee0f2;
+      --warn: #b32424;
+      --serif: "Linux Libertine", "Georgia", "Times", serif;
+      --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #101418;
+        --text: #eaecf0;
+        --muted: #a2a9b1;
+        --link: #88a3e8;
+        --border: #72777d;
+        --border-light: #404244;
+        --surface: #1b1e22;
+        --infobox-head: #233447;
+        --warn: #fd7865;
+      }
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.6;
+    }
+    a { color: var(--link); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* En-tête */
+    .site-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      max-width: 1250px;
+      margin: 0 auto;
+      padding: 10px 16px;
+    }
+    .brand { display: flex; align-items: center; gap: 10px; color: var(--text); }
+    .brand:hover { text-decoration: none; }
+    .brand svg { width: 40px; height: 40px; flex-shrink: 0; }
+    .brand-name {
+      font-family: var(--serif);
+      font-variant: small-caps;
+      font-size: 22px;
+      letter-spacing: 0.04em;
+      line-height: 1;
+      display: block;
+    }
+    .brand-tagline { font-size: 12px; color: var(--muted); display: block; margin-top: 2px; }
+
+    /* Mise en page */
+    .page {
+      max-width: 1250px;
+      margin: 0 auto;
+      padding: 0 16px 32px;
+      display: grid;
+      grid-template-columns: 220px minmax(0, 1fr);
+      gap: 32px;
+    }
+    .toc {
+      position: sticky;
+      top: 16px;
+      align-self: start;
+      max-height: calc(100vh - 32px);
+      overflow-y: auto;
+      font-size: 14px;
+      padding-top: 64px;
+    }
+    .toc-title { font-weight: 700; margin: 0 0 6px; font-size: 14px; }
+    .toc ol { list-style: none; margin: 0; padding: 0; }
+    .toc ol ol { padding-left: 14px; }
+    .toc li { margin: 4px 0; line-height: 1.35; }
+    .toc .toc-num { color: var(--muted); margin-right: 4px; }
+
+    main { min-width: 0; }
+    .tabs {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+      font-size: 14px;
+      margin-top: 8px;
+    }
+    .tab {
+      display: inline-block;
+      padding: 6px 2px;
+      margin-bottom: -1px;
+      border-bottom: 2px solid var(--text);
+      font-weight: 600;
+    }
+    h1 {
+      font-family: var(--serif);
+      font-weight: normal;
+      font-size: 1.9em;
+      line-height: 1.3;
+      margin: 16px 0 0;
+      padding-bottom: 4px;
+    }
+    .title-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      column-gap: 12px;
+      flex-wrap: wrap;
+      border-bottom: 1px solid var(--border);
+    }
+    .title-row h1 { flex: 1 1 auto; }
+    .coordinates { font-size: 13px; padding-bottom: 6px; }
+    .tagline { font-size: 13px; color: var(--muted); margin: 6px 0 12px; }
+    .hatnote {
+      font-style: italic;
+      padding-left: 1.6em;
+      margin: 0 0 12px;
+      font-size: 15px;
+    }
+
+    .content h2 {
+      font-family: var(--serif);
+      font-weight: normal;
+      font-size: 1.5em;
+      line-height: 1.3;
+      margin: 1.2em 0 0.4em;
+      padding-bottom: 2px;
+      border-bottom: 1px solid var(--border);
+      overflow: hidden;
+    }
+    .content h3 { font-size: 1.15em; margin: 1em 0 0.3em; }
+    .content p { margin: 0.5em 0 0.8em; }
+    sup.reference { font-size: 0.75em; line-height: 1; white-space: nowrap; }
+    sup.needed { font-size: 0.75em; line-height: 1; font-style: italic; white-space: nowrap; }
+    sup.needed span { color: var(--warn); }
+
+    /* Infobox */
+    .infobox {
+      float: right;
+      clear: right;
+      width: 22em;
+      margin: 0.5em 0 1em 1.4em;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      font-size: 88%;
+      line-height: 1.5;
+      border-collapse: collapse;
+    }
+    .infobox caption {
+      font-family: var(--serif);
+      font-size: 125%;
+      font-weight: bold;
+      padding: 6px 4px 2px;
+      background: var(--infobox-head);
+      border: 1px solid var(--border);
+      border-bottom: none;
+    }
+    .infobox caption small { display: block; font-weight: normal; font-size: 75%; font-style: italic; }
+    .infobox th, .infobox td { padding: 4px 6px; vertical-align: top; text-align: left; }
+    .infobox th[scope="row"] { width: 42%; font-weight: 600; }
+    .infobox tr + tr > * { border-top: 1px solid var(--border-light); }
+    .infobox .section th {
+      background: var(--infobox-head);
+      text-align: center;
+      font-weight: bold;
+    }
+    .infobox .map td { padding: 6px; text-align: center; }
+    .infobox iframe {
+      display: block;
+      width: 100%;
+      height: 240px;
+      border: 1px solid var(--border-light);
+    }
+    .infobox .map-caption { font-size: 92%; color: var(--muted); margin-top: 4px; line-height: 1.4; }
+
+    /* Tableau */
+    .wikitable {
+      border-collapse: collapse;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      margin: 1em 0;
+      font-size: 95%;
+    }
+    .wikitable caption { font-weight: bold; padding: 4px; }
+    .wikitable th, .wikitable td { border: 1px solid var(--border); padding: 6px 10px; text-align: left; }
+    .wikitable th { background: var(--infobox-head); }
+    .table-wrap { overflow-x: auto; }
+
+    /* Références */
+    .references { font-size: 90%; column-width: 30em; column-gap: 2em; padding-left: 2em; }
+    .references li { margin-bottom: 0.3em; break-inside: avoid; }
+    .references li:target { background: var(--infobox-head); }
+    .backlinks { margin-right: 4px; }
+    .backlinks sup { font-style: italic; }
+    .content ul { padding-left: 1.6em; }
+
+    .site-footer {
+      clear: both;
+      margin-top: 32px;
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .site-footer p { margin: 4px 0; }
+
+    @media (max-width: 1000px) {
+      .page { grid-template-columns: minmax(0, 1fr); gap: 0; }
+      .toc {
+        position: static;
+        max-height: none;
+        padding: 10px 14px;
+        margin: 12px 0;
+        border: 1px solid var(--border);
+        background: var(--surface);
+        justify-self: start;
+        order: 2;
+      }
+      main { display: contents; }
+      .tabs, .title-row, .tagline, .hatnote { order: 1; }
+      .content { order: 3; }
+    }
+    @media (max-width: 720px) {
+      .infobox { float: none; width: 100%; margin: 0 0 1em; }
+      h1 { font-size: 1.6em; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header" id="top">
+    <a class="brand" href="/motu-toopua/">
+      <svg viewBox="0 0 40 40" aria-hidden="true">
+        <circle cx="20" cy="20" r="19" fill="none" stroke="currentColor" stroke-width="1.5"/>
+        <path d="M5 26 Q12 24 15 18 L19 11 L23 17 Q27 23 35 26 Z" fill="currentColor" opacity="0.85"/>
+        <path d="M4 29 Q12 27 20 29 T36 29" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      </svg>
+      <span>
+        <span class="brand-name">Encyclopédie</span>
+        <span class="brand-tagline">martinlecue.github.io</span>
+      </span>
+    </a>
+  </header>
+
+  <div class="page">
+    <nav class="toc" aria-labelledby="toc-title">
+      <p class="toc-title" id="toc-title">Sommaire</p>
+      <ol>
+        <li><a href="#top">Début</a></li>
+        <li><a href="#toponymie"><span class="toc-num">1</span>Toponymie</a></li>
+        <li><a href="#geographie"><span class="toc-num">2</span>Géographie</a>
+          <ol>
+            <li><a href="#situation"><span class="toc-num">2.1</span>Situation</a></li>
+            <li><a href="#relief"><span class="toc-num">2.2</span>Relief</a></li>
+          </ol>
+        </li>
+        <li><a href="#geologie"><span class="toc-num">3</span>Géologie</a></li>
+        <li><a href="#legendes"><span class="toc-num">4</span>Légendes</a></li>
+        <li><a href="#population"><span class="toc-num">5</span>Population</a></li>
+        <li><a href="#tourisme"><span class="toc-num">6</span>Tourisme</a>
+          <ol>
+            <li><a href="#lagoon-resort"><span class="toc-num">6.1</span>Bora Bora Lagoon Resort</a></li>
+            <li><a href="#bora-bora-nui"><span class="toc-num">6.2</span>Du Sheraton au Conrad</a></li>
+          </ol>
+        </li>
+        <li><a href="#acces"><span class="toc-num">7</span>Accès</a></li>
+        <li><a href="#references"><span class="toc-num">8</span>Notes et références</a></li>
+        <li><a href="#voir-aussi"><span class="toc-num">9</span>Voir aussi</a></li>
+      </ol>
+    </nav>
+
+    <main>
+      <div class="tabs">
+        <span class="tab" aria-current="page">Article</span>
+        <span class="tab">Lire</span>
+      </div>
+
+      <div class="title-row">
+        <h1>Toopua</h1>
+        <span class="coordinates">Coordonnées&nbsp;: <a href="https://www.openstreetmap.org/?mlat=-16.5167&amp;mlon=-151.7667#map=14/-16.5167/-151.7667">16°&nbsp;31′&nbsp;S, 151°&nbsp;46′&nbsp;O</a></span>
+      </div>
+      <p class="tagline">Une fiche encyclopédique de martinlecue.github.io.</p>
+      <p class="hatnote">Ne doit pas être confondu avec le motu Tapu, îlot corallien voisin situé sur le récif barrière.</p>
+
+      <div class="content">
+        <table class="infobox">
+          <caption>Toopua<small>Toʻopua (tahitien)</small></caption>
+          <tbody>
+            <tr class="map">
+              <td colspan="2">
+                <iframe
+                  title="Carte de Toopua dans le lagon de Bora-Bora"
+                  src="https://www.openstreetmap.org/export/embed.html?bbox=-151.83%2C-16.565%2C-151.68%2C-16.44&amp;layer=mapnik&amp;marker=-16.5167%2C-151.7667"
+                  loading="lazy"></iframe>
+                <div class="map-caption">Localisation de Toopua dans le lagon de Bora-Bora. Fond de carte © contributeurs <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>.</div>
+              </td>
+            </tr>
+            <tr class="section"><th colspan="2">Géographie</th></tr>
+            <tr><th scope="row">Pays</th><td>France</td></tr>
+            <tr><th scope="row">Archipel</th><td>Îles de la Société (îles Sous-le-Vent)</td></tr>
+            <tr><th scope="row">Localisation</th><td>Lagon de Bora-Bora, océan Pacifique</td></tr>
+            <tr><th scope="row">Coordonnées</th><td>16°&nbsp;31′&nbsp;S, 151°&nbsp;46′&nbsp;O</td></tr>
+            <tr><th scope="row">Superficie</th><td>1,45&nbsp;km²</td></tr>
+            <tr><th scope="row">Point culminant</th><td>Mont Mauaohunoa (148&nbsp;m)</td></tr>
+            <tr><th scope="row">Géologie</th><td>Île haute volcanique (vestige de cratère)</td></tr>
+            <tr class="section"><th colspan="2">Administration</th></tr>
+            <tr><th scope="row">Collectivité</th><td>Polynésie française</td></tr>
+            <tr><th scope="row">Subdivision</th><td>Îles Sous-le-Vent</td></tr>
+            <tr><th scope="row">Commune</th><td>Bora-Bora</td></tr>
+            <tr class="section"><th colspan="2">Démographie</th></tr>
+            <tr><th scope="row">Population</th><td>≈&nbsp;70&nbsp;hab. (2016)</td></tr>
+            <tr><th scope="row">Densité</th><td>≈&nbsp;48&nbsp;hab./km²</td></tr>
+            <tr><th scope="row">Principale localité</th><td>Ativahia</td></tr>
+            <tr class="section"><th colspan="2">Autres informations</th></tr>
+            <tr><th scope="row">Îles voisines</th><td>Toopua Iti, motu Tapu</td></tr>
+            <tr><th scope="row">Fuseau horaire</th><td>UTC−10:00</td></tr>
+          </tbody>
+        </table>
+
+        <p><b>Toopua</b> (en tahitien <b>Toʻopua</b>), couramment appelée <b>motu Toopua</b>, est une île de <a href="https://fr.wikipedia.org/wiki/Polyn%C3%A9sie_fran%C3%A7aise">Polynésie française</a> située dans le lagon de <a href="https://fr.wikipedia.org/wiki/Bora-Bora">Bora-Bora</a>, dans l'archipel des <a href="https://fr.wikipedia.org/wiki/%C3%8Eles_de_la_Soci%C3%A9t%C3%A9">îles de la Société</a>. D'une superficie d'environ 1,45&nbsp;km², elle se dresse à l'ouest de l'île principale, face au village de <a href="https://fr.wikipedia.org/wiki/Vaitape">Vaitape</a><sup class="reference" id="cite_ref-wiki-toopua-a"><a href="#cite_note-wiki-toopua">[1]</a></sup>.</p>
+
+        <p>Contrairement à la plupart des <i>motu</i> du lagon, formés de sable et de débris coralliens, Toopua est une île haute d'origine volcanique&nbsp;: avec l'îlot voisin de Toopua Iti, elle constitue le dernier vestige de la bordure sud-ouest de l'ancien cratère du volcan de Bora-Bora<sup class="reference" id="cite_ref-wiki-borabora-a"><a href="#cite_note-wiki-borabora">[2]</a></sup>. Son point culminant, le mont Mauaohunoa, atteint 148&nbsp;m. Peuplée d'environ soixante-dix habitants, l'île est surtout connue pour abriter le Conrad Bora Bora Nui, l'un des principaux complexes hôteliers de Bora-Bora.</p>
+
+        <h2 id="toponymie">Toponymie</h2>
+        <p>En tahitien, <i>motu</i> désigne un îlot. Le mot s'applique d'ordinaire aux îlots coralliens bâtis sur le récif barrière, mais l'usage l'a étendu à Toopua malgré sa nature volcanique. Le nom s'écrit aussi <i>To'opua</i> ou <i>Toʻopua</i>, l'apostrophe (<i>ʻeta</i>) notant le coup de glotte. Certains textes distinguent <b>Toopua Rahi</b> («&nbsp;grand Toopua&nbsp;») de <b>Toopua Iti</b> («&nbsp;petit Toopua&nbsp;»), l'îlot voisin<sup class="reference" id="cite_ref-ird-a"><a href="#cite_note-ird">[3]</a></sup>.</p>
+        <p>Selon une tradition reprise dans des récits de voyage, le nom renverrait à la perche (<i>toʻo</i>) et à l'arbre (<i>pua</i>) dont le héros Hiro se serait servi pour pousser l'îlot jusque dans le lagon<sup class="reference" id="cite_ref-turquoise-a"><a href="#cite_note-turquoise">[4]</a></sup> (voir <a href="#legendes">Légendes</a>).</p>
+
+        <h2 id="geographie">Géographie</h2>
+        <h3 id="situation">Situation</h3>
+        <p>Toopua se trouve dans la partie occidentale du lagon de Bora-Bora, entre l'île principale à l'est et le récif barrière à l'ouest. Elle fait face à Vaitape, chef-lieu de la commune, et à la baie de Tuuraapuo (aussi appelée baie de Povai). L'île est encadrée par le petit îlot volcanique de Toopua Iti et par le motu Tapu, îlot corallien posé sur le récif<sup class="reference" id="cite_ref-wiki-toopua-b"><a href="#cite_note-wiki-toopua">[1]</a></sup>.</p>
+        <p>Avec Toopua Iti, l'île abrite un vaste plan d'eau protégé, apprécié des plaisanciers<sup class="reference" id="cite_ref-britannica"><a href="#cite_note-britannica">[5]</a></sup>.</p>
+
+        <h3 id="relief">Relief</h3>
+        <p>Le relief de l'île est accidenté et culmine au mont Mauaohunoa, à 148&nbsp;m d'altitude. Le principal lieu habité, Ativahia, occupe l'angle sud-est de l'île, tourné vers l'île principale&nbsp;; la pointe Mohio, à l'extrémité sud-est, accueille le complexe hôtelier du Conrad Bora Bora Nui<sup class="reference" id="cite_ref-wiki-toopua-c"><a href="#cite_note-wiki-toopua">[1]</a></sup>.</p>
+        <p>L'îlot voisin de Toopua Iti, beaucoup plus petit, ne dépasse pas 17&nbsp;m d'altitude<sup class="reference" id="cite_ref-wiki-borabora-b"><a href="#cite_note-wiki-borabora">[2]</a></sup>.</p>
+
+        <h2 id="geologie">Géologie</h2>
+        <p>Bora-Bora est un volcan éteint, formé au-dessus du point chaud de la Société, qui fut actif au Pliocène supérieur, entre 3,45 et 3,10&nbsp;millions d'années. L'édifice a ensuite subi un affaissement au moins partiel et une forte érosion sous un climat tropical chaud et humide<sup class="reference" id="cite_ref-wiki-borabora-c"><a href="#cite_note-wiki-borabora">[2]</a></sup>&nbsp;; à la fin du Tertiaire, l'île devait dépasser 1&nbsp;500&nbsp;m d'altitude<sup class="reference" id="cite_ref-ird-b"><a href="#cite_note-ird">[3]</a></sup>.</p>
+        <p>La baie de Tuuraapuo correspond à l'ancien cratère principal du volcan. Sa bordure sud-ouest, faillée et effondrée, ne subsiste plus aujourd'hui qu'à travers les îlots basaltiques de Toopua et de Toopua Iti, qui culminent respectivement à 148&nbsp;m et 17&nbsp;m<sup class="reference" id="cite_ref-ird-c"><a href="#cite_note-ird">[3]</a></sup>.</p>
+        <p>Les roches de Bora-Bora sont surtout des basaltes alcalins, avec quelques hawaiites&nbsp;; des intrusions de gabbro y sont signalées, en particulier sur Toopua<sup class="reference" id="cite_ref-wiki-borabora-d"><a href="#cite_note-wiki-borabora">[2]</a></sup>. Cette origine volcanique distingue Toopua et Toopua Iti des autres motu du lagon, qui sont d'origine corallienne.</p>
+
+        <h2 id="legendes">Légendes</h2>
+        <p>Plusieurs récits de la tradition polynésienne expliquent la présence de Toopua au milieu du lagon. Leurs détails varient selon les sources.</p>
+        <p>Dans l'un d'eux, des voleurs entreprennent, de nuit, d'emporter un morceau de Bora-Bora. Une lance projetée jusqu'à <a href="https://fr.wikipedia.org/wiki/Moorea">Moorea</a>, qui aurait percé au passage le mont Mouaputa («&nbsp;montagne percée&nbsp;»), réveille le coq&nbsp;: croyant le jour levé, les voleurs s'enfuient en abandonnant leur butin dans le lagon, qui serait devenu Toopua. Selon les versions, le héros Hiro y tient tantôt le rôle de celui qui déjoue le vol, tantôt celui du chef des voleurs<sup class="reference" id="cite_ref-usc"><a href="#cite_note-usc">[6]</a></sup>.</p>
+        <p>Dans une autre version, Hiro, à la fois guerrier, navigateur et voleur, veut fermer l'anse d'Amanahune en y halant un îlot rocheux arraché à <a href="https://fr.wikipedia.org/wiki/Maupiti">Maupiti</a>. Ses pouvoirs l'abandonnant à l'approche du lagon, il renonce et laisse l'énorme rocher sur place&nbsp;; l'îlot aurait pris le nom de Toʻopua en souvenir de la perche et de l'arbre utilisés pour le pousser<sup class="reference" id="cite_ref-turquoise-b"><a href="#cite_note-turquoise">[4]</a></sup>.</p>
+
+        <h2 id="population">Population</h2>
+        <p>En 2016, Toopua comptait environ 70&nbsp;habitants, ce qui en faisait la deuxième île la plus peuplée de la commune de Bora-Bora après l'île principale. Sa population se compose de foyers privés et d'une partie du personnel hôtelier. Le village d'Ativahia, à l'angle sud-est, en est le principal lieu habité<sup class="reference" id="cite_ref-wiki-toopua-d"><a href="#cite_note-wiki-toopua">[1]</a></sup>.</p>
+
+        <h2 id="tourisme">Tourisme</h2>
+        <p>Comme plusieurs motu du lagon, Toopua a accueilli de grands complexes hôteliers à partir des années 1990. Deux établissements s'y sont succédé&nbsp;: le Bora Bora Lagoon Resort, aujourd'hui fermé, et l'actuel Conrad Bora Bora Nui.</p>
+
+        <h3 id="lagoon-resort">Bora Bora Lagoon Resort (1993-2010)</h3>
+        <p>Ouvert en 1993, le Bora Bora Lagoon Resort, propriété du groupe Orient-Express, comptait 79&nbsp;bungalows sur le motu, face au port de Vaitape<sup class="reference" id="cite_ref-tourmag"><a href="#cite_note-tourmag">[7]</a></sup>. Endommagé par le cyclone Oli en février 2010, l'hôtel a fermé ses portes, annulant toutes ses réservations et suspendant ses ventes<sup class="reference" id="cite_ref-travelpulse"><a href="#cite_note-travelpulse">[8]</a></sup>. Il n'a pas rouvert depuis<sup class="needed">[<span>réf.&nbsp;nécessaire</span>]</sup>.</p>
+
+        <h3 id="bora-bora-nui">Du Sheraton au Conrad Bora Bora Nui</h3>
+        <p>Le second complexe, implanté à la pointe Mohio, ouvre en 2002 sous le nom de <b>Sheraton Bora Bora Nui Resort &amp; Mandara Spa</b>. Présenté alors comme l'hôtel le plus luxueux ouvert en Polynésie française depuis quarante ans, il compte environ 120&nbsp;suites et villas, en grande partie sur pilotis, ainsi qu'un spa construit au sommet d'une colline de lave noire<sup class="reference" id="cite_ref-hospitalitynet-2002"><a href="#cite_note-hospitalitynet-2002">[9]</a></sup>. Son ouverture se fait par étapes à partir du 1<sup>er</sup>&nbsp;octobre 2002<sup class="reference" id="cite_ref-travelage"><a href="#cite_note-travelage">[10]</a></sup>.</p>
+        <p>Exploité ensuite sous le nom de Bora Bora Nui Resort &amp; Spa au sein de la Luxury Collection de Starwood, l'établissement passe sous enseigne Hilton le 16&nbsp;janvier 2009, à la suite d'un accord de franchise couvrant trois hôtels polynésiens, et devient le <b>Hilton Bora Bora Nui Resort &amp; Spa</b><sup class="reference" id="cite_ref-hilton-2009"><a href="#cite_note-hilton-2009">[11]</a></sup>.</p>
+        <p>En juillet 2016, Conrad Hotels &amp; Resorts, marque de luxe du groupe Hilton, annonce la transformation de l'hôtel au terme d'une rénovation de plusieurs millions de dollars<sup class="reference" id="cite_ref-conrad-2016"><a href="#cite_note-conrad-2016">[12]</a></sup>, conçue par le cabinet BLINK Design, basé à Bangkok<sup class="reference" id="cite_ref-blink"><a href="#cite_note-blink">[13]</a></sup>. Le complexe rouvre le 4&nbsp;avril 2017 sous le nom de <b>Conrad Bora Bora Nui</b>&nbsp;: c'est le premier hôtel de la marque en Polynésie française<sup class="reference" id="cite_ref-conrad-2017"><a href="#cite_note-conrad-2017">[14]</a></sup>. Il compte alors 114&nbsp;unités, dont 86&nbsp;bungalows sur pilotis et deux villas présidentielles sur pilotis à étage, présentées comme les seules de ce type en Polynésie française<sup class="reference" id="cite_ref-hd-2017"><a href="#cite_note-hd-2017">[15]</a></sup>.</p>
+        <p>Fermé temporairement au début de l'année 2026 pour de nouveaux travaux<sup class="reference" id="cite_ref-omaat"><a href="#cite_note-omaat">[16]</a></sup>, le complexe a annoncé sa réouverture pour le 1<sup>er</sup>&nbsp;mai 2026, avec des bungalows sur pilotis agrandis<sup class="reference" id="cite_ref-tfb"><a href="#cite_note-tfb">[17]</a></sup>.</p>
+
+        <div class="table-wrap">
+          <table class="wikitable">
+            <caption>Enseignes successives du complexe de la pointe Mohio</caption>
+            <thead>
+              <tr><th scope="col">Depuis</th><th scope="col">Nom</th><th scope="col">Groupe</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>2002</td><td>Sheraton Bora Bora Nui Resort &amp; Mandara Spa</td><td>Starwood</td></tr>
+              <tr><td>Années 2000</td><td>Bora Bora Nui Resort &amp; Spa</td><td>Starwood (The Luxury Collection)</td></tr>
+              <tr><td>2009</td><td>Hilton Bora Bora Nui Resort &amp; Spa</td><td>Hilton (franchise)</td></tr>
+              <tr><td>2017</td><td>Conrad Bora Bora Nui</td><td>Hilton (Conrad Hotels &amp; Resorts)</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="acces">Accès</h2>
+        <p>Toopua n'est accessible que par bateau. L'île se trouve juste en face de Vaitape, où accostent les navettes maritimes reliant l'aéroport de Bora-Bora, implanté sur le motu Mute au nord du lagon, à l'île principale.</p>
+
+        <h2 id="references">Notes et références</h2>
+        <ol class="references">
+          <li id="cite_note-wiki-toopua"><span class="backlinks">↑ <sup><a href="#cite_ref-wiki-toopua-a">a</a> <a href="#cite_ref-wiki-toopua-b">b</a> <a href="#cite_ref-wiki-toopua-c">c</a> et <a href="#cite_ref-wiki-toopua-d">d</a></sup></span> «&nbsp;<a href="https://en.wikipedia.org/wiki/Toopua">Toopua</a>&nbsp;», sur <i>Wikipedia</i> (anglais).</li>
+          <li id="cite_note-wiki-borabora"><span class="backlinks">↑ <sup><a href="#cite_ref-wiki-borabora-a">a</a> <a href="#cite_ref-wiki-borabora-b">b</a> <a href="#cite_ref-wiki-borabora-c">c</a> et <a href="#cite_ref-wiki-borabora-d">d</a></sup></span> «&nbsp;<a href="https://fr.wikipedia.org/wiki/Bora-Bora">Bora-Bora</a>&nbsp;», section «&nbsp;Géologie&nbsp;», sur <i>Wikipédia</i>.</li>
+          <li id="cite_note-ird"><span class="backlinks">↑ <sup><a href="#cite_ref-ird-a">a</a> <a href="#cite_ref-ird-b">b</a> et <a href="#cite_ref-ird-c">c</a></sup></span> <a href="https://horizon.documentation.ird.fr/exl-doc/pleins_textes/pleins_textes_5/b_fdi_18-19/24233.pdf">Document sur la géographie physique de Bora-Bora</a> [PDF], fonds documentaire Horizon, Institut de recherche pour le développement (IRD).</li>
+          <li id="cite_note-turquoise"><span class="backlinks">↑ <sup><a href="#cite_ref-turquoise-a">a</a> et <a href="#cite_ref-turquoise-b">b</a></sup></span> (en) «&nbsp;<a href="https://www.turquoiseholidays.co.uk/blog/turquoise-travel-diaries-bora-bora/">Turquoise Travel Diaries: Bora Bora</a>&nbsp;», sur <i>Turquoise Holidays</i>.</li>
+          <li id="cite_note-britannica"><span class="backlinks"><a href="#cite_ref-britannica">↑</a></span> (en) «&nbsp;<a href="https://www.britannica.com/place/Bora-Bora">Bora-Bora</a>&nbsp;», sur <i>Encyclopædia Britannica</i>.</li>
+          <li id="cite_note-usc"><span class="backlinks"><a href="#cite_ref-usc">↑</a></span> (en) «&nbsp;<a href="https://folklore.usc.edu/how-bora-bora-was-formed-tahiti/">How Bora Bora was Formed – Tahiti</a>&nbsp;», sur <i>USC Digital Folklore Archives</i>, université de Californie du Sud.</li>
+          <li id="cite_note-tourmag"><span class="backlinks"><a href="#cite_ref-tourmag">↑</a></span> «&nbsp;<a href="https://www.tourmag.com/Bora-Bora-Lagoon-Resort-fermeture-3-mois-et-nouveau-directeur_a1599.html">Bora Bora Lagoon Resort&nbsp;: fermeture 3 mois et nouveau directeur</a>&nbsp;», sur <i>TourMaG</i>, 2004.</li>
+          <li id="cite_note-travelpulse"><span class="backlinks"><a href="#cite_ref-travelpulse">↑</a></span> (en) «&nbsp;<a href="https://www.travelpulse.com/news/agents/bora-bora-properties-making-repairs-after-cyclone-oli">Bora Bora Properties Making Repairs after Cyclone Oli</a>&nbsp;», sur <i>TravelPulse</i>, février 2010.</li>
+          <li id="cite_note-hospitalitynet-2002"><span class="backlinks"><a href="#cite_ref-hospitalitynet-2002">↑</a></span> (en) «&nbsp;<a href="https://www.hospitalitynet.org/news/4012238.html">Sheraton Bora Bora Nui Resort &amp; Mandara SPA Opens – Most Luxurious Hotel To Open In French Polynesia In 40 Years</a>&nbsp;», sur <i>Hospitality Net</i>, 2002.</li>
+          <li id="cite_note-travelage"><span class="backlinks"><a href="#cite_ref-travelage">↑</a></span> (en) «&nbsp;<a href="https://www.travelagewest.com/Travel/Asia-Pacific/Resort-Aims-for-the-Top">Resort Aims for the Top</a>&nbsp;», sur <i>TravelAge West</i>, 2002.</li>
+          <li id="cite_note-hilton-2009"><span class="backlinks"><a href="#cite_ref-hilton-2009">↑</a></span> (en) «&nbsp;<a href="https://www.hotel-online.com/News/PR2009_1st/Jan09_HiltonSoPac.html">Hilton Adds Three Stunning South Pacific Properties to Its Australasian Portfolio</a>&nbsp;», sur <i>Hotel Online</i>, 21&nbsp;janvier 2009.</li>
+          <li id="cite_note-conrad-2016"><span class="backlinks"><a href="#cite_ref-conrad-2016">↑</a></span> (en) «&nbsp;<a href="https://www.hotel-online.com/news/former-hilton-resort-to-undergo-multimillion-dollar-transformation">Former Hilton Resort to Undergo Multimillion-Dollar Transformation and Reopen as Conrad Bora Bora Nui</a>&nbsp;», sur <i>Hotel Online</i>, juillet 2016.</li>
+          <li id="cite_note-blink"><span class="backlinks"><a href="#cite_ref-blink">↑</a></span> (en) «&nbsp;<a href="https://hospitalitydesign.com/news/blink-design-to-revamp-the-conrad-bora-bora-nui/17088">BLINK Design to Revamp the Conrad Bora Bora Nui</a>&nbsp;», sur <i>Hospitality Design</i>.</li>
+          <li id="cite_note-conrad-2017"><span class="backlinks"><a href="#cite_ref-conrad-2017">↑</a></span> (en) «&nbsp;<a href="https://www.hospitalitynet.org/news/4081974/conrad-hotels-resorts-debuts-first-property-in-french-polynesia-with-the-opening-of-conrad-bora-bora-nui">Conrad Hotels &amp; Resorts Debuts First Property In French Polynesia With The Opening Of Conrad Bora Bora Nui</a>&nbsp;», sur <i>Hospitality Net</i>, 4&nbsp;avril 2017.</li>
+          <li id="cite_note-hd-2017"><span class="backlinks"><a href="#cite_ref-hd-2017">↑</a></span> (en) «&nbsp;<a href="https://hospitalitydesign.com/news/conrad-bora-bora-nui-debuts/54344">Conrad Bora Bora Nui Debuts</a>&nbsp;», sur <i>Hospitality Design</i>, 2017.</li>
+          <li id="cite_note-omaat"><span class="backlinks"><a href="#cite_ref-omaat">↑</a></span> (en) «&nbsp;<a href="https://onemileatatime.com/news/conrad-bora-bora-renovation/">Cool: Conrad Bora Bora Closing For Renovation In Early 2026</a>&nbsp;», sur <i>One Mile at a Time</i>.</li>
+          <li id="cite_note-tfb"><span class="backlinks"><a href="#cite_ref-tfb">↑</a></span> (en) «&nbsp;<a href="https://travellingforbusiness.co.uk/news/conrad-bora-bora-nui-reopens-may-2026/">Conrad Bora Bora Nui to reopen on 1 May with bigger overwater bungalows and sunset views</a>&nbsp;», sur <i>Travelling for Business</i>, avril 2026.</li>
+        </ol>
+
+        <h2 id="voir-aussi">Voir aussi</h2>
+        <h3>Articles connexes</h3>
+        <ul>
+          <li><a href="https://fr.wikipedia.org/wiki/Bora-Bora">Bora-Bora</a></li>
+          <li><a href="https://fr.wikipedia.org/wiki/Vaitape">Vaitape</a></li>
+          <li><a href="https://fr.wikipedia.org/wiki/Mont_Otemanu">Mont Otemanu</a></li>
+          <li><a href="https://fr.wikipedia.org/wiki/%C3%8Eles_de_la_Soci%C3%A9t%C3%A9">Îles de la Société</a></li>
+          <li><a href="https://fr.wikipedia.org/wiki/Polyn%C3%A9sie_fran%C3%A7aise">Polynésie française</a></li>
+        </ul>
+        <h3>Liens externes</h3>
+        <ul>
+          <li><a href="https://www.openstreetmap.org/?mlat=-16.5167&amp;mlon=-151.7667#map=14/-16.5167/-151.7667">Toopua sur OpenStreetMap</a></li>
+        </ul>
+
+        <footer class="site-footer">
+          <p>Dernière modification de cette page le 28&nbsp;octobre 2026.</p>
+          <p>Fiche rédigée pour martinlecue.github.io à partir des sources citées. Ce site n'est affilié ni à Wikipédia ni à la Wikimedia Foundation.</p>
+        </footer>
+      </div>
+    </main>
+  </div>
+</body>
+</html>
